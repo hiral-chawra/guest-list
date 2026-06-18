@@ -173,3 +173,5 @@ app.get("/download", async (req, res) => {
     res.setHeader('Content-Disposition', 'attachment; filename="Guest_List.csv"');
     res.send(csvData);
 });
+
+module.exports = app;
