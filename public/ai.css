@@ -340,5 +340,6 @@ span.editable {
         padding: 10px !important;
         overflow-x: auto !important;
         -webkit-overflow-scrolling: touch !important;
+        justify-content: flex-start !important;
     }
 }
