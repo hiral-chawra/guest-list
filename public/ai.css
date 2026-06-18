@@ -1,0 +1,293 @@
+/* =========================================================
+   CUTE DARK LAVENDER PALETTE
+========================================================= */
+:root {
+    --lav-dark-bg: #B2BEB5;
+    /* Main medium-grey background */
+    --lav-card-bg: #ffffff;
+    /* Forms & table background (White for clean contrast) */
+    --lav-table-odd: #B2BEB5;
+    /* White for odd rows */
+    --lav-table-even: #e6ebe7;
+    /* Very light grey for even rows */
+    --lav-hover: #d1d8d3;
+    /* Slightly darker grey for table row hover */
+    --lav-accent: #222222;
+    /* Near-black for headings and primary elements */
+    --lav-accent-light: #666666;
+    /* Medium-dark grey for borders and highlights */
+    --lav-text-main: #111111;
+    /* Dark text for readability */
+    --lav-text-muted: #4d4d4d;
+    /* Medium grey for labels and muted text */
+}
+
+body {
+    background-color: var(--lav-dark-bg);
+    color: var(--lav-text-main);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+h1 {
+    text-align: center;
+    color: var(--lav-accent-light);
+    margin-top: 40px;
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+/* =========================================================
+   COMPACT SEARCH & ORDER FORMS
+========================================================= */
+.flex {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin: 5px 0;
+}
+
+/* Make the form a cute horizontal pill instead of stacked boxes */
+.flex form {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 12px;
+    background-color: var(--lav-card-bg);
+    padding: 8px 20px;
+    border-radius: 40px;
+    border: 1px solid var(--lav-accent);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.flex form label {
+    color: var(--lav-text-muted);
+    font-size: 0.9rem;
+    margin: 0;
+    font-weight: 600;
+}
+
+.flex form select,
+.flex form input {
+    background-color: var(--lav-dark-bg);
+    color: var(--lav-text-main);
+    border: 1px solid var(--lav-accent-light);
+    border-radius: 8px;
+    padding: 4px 10px;
+    font-size: 0.85rem;
+}
+
+.flex form select:focus,
+.flex form input:focus {
+    outline: none;
+    border-color: var(--lav-accent);
+    box-shadow: 0 0 5px var(--lav-accent);
+}
+
+/* Target the inner flex div in the search form to stop it from stacking */
+.flex form .flex {
+    margin: 0;
+    gap: 8px;
+}
+
+/* =========================================================
+   TABLE WITH PROPER ROUNDED CORNERS
+========================================================= */
+.flex:has(.AGtable) {
+    width: 100%;
+    overflow-x: auto;
+    padding: 20px;
+}
+
+.AGtable {
+    border-collapse: separate;
+    /* CRITICAL for border-radius */
+    border-spacing: 0;
+    width: 90%;
+    min-width: 800px;
+    margin: 10px auto;
+    background-color: var(--lav-card-bg);
+    border-radius: 16px;
+    /* Cute rounded corners */
+    overflow: hidden;
+    /* Clips the children to the radius */
+    border: 2px solid var(--lav-accent);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+}
+
+.AGtable th,
+.AGtable td {
+    padding: 12px 15px;
+    text-align: center;
+    vertical-align: middle;
+    border-bottom: 1px solid var(--lav-accent-light);
+}
+
+/* Prevents bottom border overlap with the table wrapper border */
+.AGtable tr:last-child td {
+    border-bottom: none;
+}
+
+.AGtable th {
+    background-color: var(--lav-accent);
+    color: #fff;
+    font-weight: bold;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+}
+
+.AGtable tbody tr:nth-child(odd) {
+    background-color: var(--lav-table-odd);
+}
+
+.AGtable tbody tr:nth-child(even) {
+    background-color: var(--lav-table-even);
+}
+
+.AGtable tr:hover td {
+    background-color: var(--lav-hover);
+    color: #fff;
+    transition: background-color 0.2s ease;
+}
+
+/* =========================================================
+   BUTTONS & BADGES
+========================================================= */
+#wpno {
+    background-color: #25D366;
+    /* WhatsApp Green */
+    color: white;
+    padding: 3px 8px;
+    border-radius: 12px;
+    font-size: 0.8rem;
+    display: inline-block;
+    margin-top: 5px;
+}
+
+.btn {
+    border-radius: 8px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    padding: 6px 12px;
+    transition: all 0.3s;
+}
+
+/* Restyling Bootstrap Outline Buttons */
+.btn-outline-primary {
+    color: var(--lav-accent-light);
+    border-color: var(--lav-accent-light);
+}
+
+.btn-outline-primary:hover {
+    background-color: var(--lav-accent);
+    border-color: var(--lav-accent);
+    color: #fff;
+}
+
+.btn-outline-danger {
+    color: #ff7675;
+    border-color: #ff7675;
+}
+
+.btn-outline-danger:hover {
+    background-color: #ff7675;
+    color: white;
+}
+
+/* Bottom Actions */
+.d-flex.justify-content-center {
+    gap: 15px;
+    margin-bottom: 40px;
+}
+
+.d-flex.justify-content-center span {
+    display: none;
+    /* Hide the hardcoded &nbsp; spaces from EJS */
+}
+
+#add-btn a {
+    color: inherit;
+    text-decoration: none;
+}
+
+.btn-outline-secondary {
+    color: var(--lav-text-main);
+    border-color: var(--lav-text-muted);
+}
+
+.btn-outline-secondary:hover {
+    background-color: var(--lav-text-muted);
+    color: var(--lav-dark-bg);
+}
+
+#delete {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Center the form container inside the table cell */
+.AGtable td form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+}
+
+/* Ensure the delete button text is centered and the button isn't stretched */
+.btn-outline-danger {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    padding: 4px 16px;
+    width: auto; /* Stops the button from stretching to fill the whole cell */
+}
+
+.search-group {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: nowrap; /* Forces them to stay on the same line */
+}
+
+/* Stop the input box from shrinking too much or expanding unnecessarily */
+.search-group input {
+    min-width: 150px;
+    max-width: 200px;
+}
+
+.edit-input {
+    width: 100%;
+    min-width: 80px;
+    box-sizing: border-box;
+    padding: 6px;
+    border: 2px solid var(--lav-accent);
+    border-radius: 6px;
+    font-size: 0.85rem;
+    background-color: var(--lav-card-bg);
+    color: var(--lav-text-main);
+    text-align: center;
+}
+
+/* ==========================================
+   EDITABLE CELLS FIX (For Empty Areas)
+========================================== */
+td.editable {
+    cursor: pointer; /* Shows a pointing hand so you know you can click it! */
+}
+
+span.editable {
+    display: inline-block;
+    min-width: 80px;
+    min-height: 24px; /* Forces the empty number span to have actual height */
+    cursor: pointer;
+}
+
+/* Magic trick: If the cell is completely empty, this adds an invisible space 
+   so the browser doesn't collapse the box to 0 pixels */
+.editable:empty::after {
+    content: "\00a0"; 
+}

@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Guests</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="/ai.css">
+</head>
+
+<body>
+    <h1>List of people invited</h1>
+    <br>
+    <div class="flex">
+        <form action="/search" method="get">
+            <label for="search">Choose column you want to search from:</label>
+
+            <select name="search_column" id="search_column">
+                <option value="first_name">First Name</option>
+                <option value="last_name">Last Name</option>
+                <option value="number">Contact</option>
+                <option value="category">Category</option>
+                <option value="reference_name">Reference</option>
+            </select>
+            <div class="search-group">
+                <input type="text" name="search_query" id="search_query" placeholder="Search..." class="form-control">
+                <button type="submit" class="btn btn-outline-primary" id="search-btn">Search</button>
+            </div>
+        </form>
+    </div>
+    <br>
+
+    <div class="flex">
+        <form action="/order" method="get">
+            <label for="order">Choose how you want to order:</label>
+
+            <select name="column" id="column">
+                <option value="created_at" <%=column==="created_at" ? "selected" : "" %>>
+                    Date Added
+                </option>
+                <option value="first_name" <%=column==="first_name" ? "selected" : "" %>>
+                    First Name
+                </option>
+                <option value="last_name" <%=column==="last_name" ? "selected" : "" %>>
+                    Last Name
+                </option>
+                <option value="category" <%=column==="category" ? "selected" : "" %>>
+                    Category
+                </option>
+                <option value="reference_name" <%=column==="reference_name" ? "selected" : "" %>>
+                    Reference
+                </option>
+            </select>
+            <select name="asc_desc" id="asc_desc">
+                <option value="asc" <%=asc_desc==="asc" ? "selected" : "" %>>
+                    Ascending
+                </option>
+                <option value="desc" <%=asc_desc==="desc" ? "selected" : "" %>>
+                    Descending
+                </option>
+            </select>
+            <button type="submit" class="btn btn-outline-primary" id="order-btn">Order</button>
+        </form>
+    </div>
+    <div class="flex">
+        <table id="ALLguests-table" class="AGtable">
+            <tr>
+                <th>Sr. No.</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Contact</th>
+                <th>Catagory</th>
+                <th>Address</th>
+                <th>Reference</th>
+                <th>Added at</th>
+                <th>Delete</th>
+            </tr>
+            <% guests.forEach((guest, index)=> { %>
+                <tr id="r<%= index + 1 %>" data-id="<%= guest.guest_id %>">
+                    <td>
+                        <%= index + 1 %>
+                    </td>
+
+                    <td class="editable" data-col="first_name">
+                        <%= guest.first_name %>
+                    </td>
+                    <td class="editable" data-col="last_name">
+                        <%= guest.last_name %>
+                    </td>
+
+                    <td>
+                        <span class="editable" data-col="number" style="display: inline-block; min-width: 80px;">
+                            <%= guest.number %>
+                        </span>
+
+                        <% if (guest.wp_number) { %>
+                            <br>
+                            <span id="wpno">
+                                <i class="bi bi-whatsapp"></i>
+                                <%= guest.wp_number %>
+                            </span>
+                            <% } %>
+                    </td>
+
+                    <td class="editable" data-col="category">
+                        <%= guest.category %>
+                    </td>
+                    <td class="editable" data-col="address">
+                        <%= guest.address %>
+                    </td>
+                    <td class="editable" data-col="reference_name">
+                        <%= guest.reference_name %>
+                    </td>
+
+                    <td>
+                        <%= new Date(guest.created_at).toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' }) %>
+                    </td>
+                    <td>
+                        <form action="/delete/<%= guest.guest_id %>" method="post"
+                            onsubmit="return confirm('Delete <%= guest.first_name %> <%= guest.last_name %>?')">
+                            <button type="submit" class="btn btn-outline-danger" class="delete-btn">Delete</button>
+                        </form>
+                    </td>
+                </tr>
+                <% }); %>
+        </table>
+    </div>
+    <br>
+    <div class="d-flex justify-content-center">
+        <button type="button" class="btn btn-info" id="add-btn"><a href="/form">Add Guest</a></button>
+        <span> &nbsp; &nbsp; &nbsp; </span>
+        <a href="/download" class="btn btn-outline-primary">
+            <i class="bi bi-download"></i> Download List
+        </a>
+        <a href="/All_Guests" class="btn btn-secondary">
+            Show All Guests
+        </a>
+    </div>
+    <script src="/elements.js"></script>
+</body>
+
+</html>

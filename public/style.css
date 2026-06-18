@@ -1,0 +1,83 @@
+body {
+    background-color: #B2BEB5;
+}
+
+h1 {
+    text-align: center;
+    font-family: 'Arial', sans-serif;
+    color: #333;
+    margin-top: 50px;
+}
+
+.flex {
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    /* horizontal center */
+}
+
+.AGtable,
+.AGtable tr,
+.AGtable th,
+.AGtable td {
+    border: 1px solid #000;
+    border-collapse: collapse;
+    vertical-align: middle;
+    padding: 10px;
+}
+
+.AGtable {
+    font-family: 'Arial', sans-serif;
+    color: #333;
+    margin-top: 50px;
+    width: 80%;
+}
+
+.AGtable th {
+    background-color: #b5e1ff;
+    text-align: center;
+}
+
+.AGtable tr:hover {
+    background-color: #aba6a6;
+}
+
+#wpno {
+    background-color: #00ff11;
+    padding: 4px;
+}
+
+.AGtable tbody tr:nth-child(odd) {
+    background-color: #F5C1F3;
+}
+
+.AGtable tbody tr:nth-child(even) {
+    background-color: #E4BBFC;
+}
+
+/* c9cdda */
+
+
+/* #E0F098 */
+
+#add-btn {
+    text-align: center !important;
+}
+
+a {
+    text-decoration: none;
+    color: black;
+}
+
+#form-body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #B2BEB5;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#search_query {
+    margin-right: 10px;
+}
+
