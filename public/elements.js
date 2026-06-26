@@ -115,57 +115,88 @@ async function saveCell(cell, newValue, originalValue, colName, guestId) {
 }
 
 // ==========================================
-// 3. IMPORT FROM CONTACTS API
+// 3. BULK IMPORT FROM CONTACTS API
 // ==========================================
 const importContactBtn = document.getElementById('import-contact-btn');
 
 if (importContactBtn) {
     importContactBtn.addEventListener('click', async () => {
-        // 1. Check if the user's phone/browser supports this feature
         const supported = ('contacts' in navigator && 'ContactsManager' in window);
-
+        
         if (!supported) {
-            alert('Your current browser or device does not support importing contacts. Please type the details manually.');
+            alert('Your current browser or device does not support importing contacts.');
             return;
         }
 
         try {
-            // 2. Ask the phone for Names and Telephone numbers
+            // Ask the phone for Names and Telephone numbers
             const properties = ['name', 'tel'];
-            const options = { multiple: false }; // Only pick one person at a time
+            // ENABLE MULTIPLE SELECTION
+            const options = { multiple: true }; 
 
-            // 3. Open the native contacts app
+            // Open the native contacts app
             const contacts = await navigator.contacts.select(properties, options);
 
-            // 4. If they picked someone, fill out the form
             if (contacts.length > 0) {
-                const selectedPerson = contacts[0];
+                // Ask for the required fields since they aren't in the phone contacts
+                const defaultRef = prompt("Enter the Reference name for these imported contacts (e.g., Your Name):", "Imported");
+                if (defaultRef === null) return; // Stop if user clicks cancel
+                
+                const defaultAddress = prompt("Enter an Address for these contacts (e.g., Home, City):", "N/A");
+                if (defaultAddress === null) return; // Stop if user clicks cancel
 
-                // Auto-fill Name
-                if (selectedPerson.name && selectedPerson.name.length > 0) {
-                    const fullName = selectedPerson.name[0];
-                    const nameParts = fullName.split(' ');
+                // Change button text so user knows it's working
+                const originalText = importContactBtn.innerHTML;
+                importContactBtn.innerHTML = '<i class="bi bi-hourglass-split"></i> Importing...';
+                importContactBtn.disabled = true;
 
-                    // Put the first word in First Name, and the rest in Last Name
-                    document.getElementById('firstName').value = nameParts[0] || '';
-                    document.getElementById('lastName').value = nameParts.slice(1).join(' ') || '';
+                // Loop through every person selected
+                for (const person of contacts) {
+                    let firstName = "Unknown";
+                    let lastName = "";
+                    let phone = "";
+
+                    // Extract Name
+                    if (person.name && person.name.length > 0) {
+                        const nameParts = person.name[0].split(' ');
+                        firstName = nameParts[0] || 'Unknown';
+                        lastName = nameParts.slice(1).join(' ') || '';
+                    }
+
+                    // Extract Phone
+                    if (person.tel && person.tel.length > 0) {
+                        phone = person.tel[0].replace(/\D/g, '').slice(-10);
+                    }
+
+                    // Package the data to send to the server
+                    const params = new URLSearchParams();
+                    params.append('firstName', firstName);
+                    params.append('lastName', lastName);
+                    params.append('number', phone);
+                    params.append('wpNumber', phone); // Put the same number for WA
+                    params.append('category', 'Contact Import'); // Auto-set category
+                    params.append('address', defaultAddress);
+                    params.append('reference', defaultRef);
+
+                    // Submit to the backend silently
+                    await fetch('/All_Guests', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/x-www-form-urlencoded'
+                        },
+                        body: params.toString()
+                    });
                 }
 
-                // Auto-fill Phone Number
-                if (selectedPerson.tel && selectedPerson.tel.length > 0) {
-                    // Grab the number and strip out any dashes, brackets, or country codes to get the last 10 digits
-                    let rawNum = selectedPerson.tel[0].replace(/\D/g, '');
-                    let cleanNum = rawNum.slice(-10);
-
-                    document.getElementById('number').value = cleanNum;
-
-                    // Optional: auto-fill the WhatsApp number with the same number to save time
-                    document.getElementById('wpNumber').value = cleanNum;
-                }
+                // Redirect to the table after finishing
+                alert(`Successfully imported ${contacts.length} contacts!`);
+                window.location.href = '/All_Guests';
             }
         } catch (err) {
-            console.error('Error picking contact:', err);
-            // If the user cancels the picker, it throws an error, so we just ignore it silently
+            console.error('Error picking contacts:', err);
+            // Reset button if there's an error or user cancels
+            importContactBtn.innerHTML = '<i class="bi bi-person-lines-fill"></i> Import from Contacts';
+            importContactBtn.disabled = false;
         }
     });
 }
