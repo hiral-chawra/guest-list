@@ -2,7 +2,7 @@
     "name": "Guest List",
     "short_name": "Guests",
     "start_url": "/All_Guests",
-    "display": "standalone",
+    "display": "browser",
     "background_color": "#B2BEB5",
     "theme_color": "#222222",
     "icons": [
