@@ -343,3 +343,19 @@ span.editable {
         justify-content: flex-start !important;
     }
 }
+
+/* Disable double-tap-to-zoom on table cells so the JS dblclick works instantly */
+td,
+th,
+.editable {
+    touch-action: manipulation;
+}
+
+/* Create a responsive wrapper for the table */
+.table-responsive {
+    overflow-x: auto;
+    width: 100%;
+    -webkit-overflow-scrolling: touch;
+    /* Makes scrolling smooth on iPhones */
+    margin-bottom: 20px;
+}

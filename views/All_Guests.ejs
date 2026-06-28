@@ -66,67 +66,69 @@
         </form>
     </div>
     <div class="flex">
-        <table id="ALLguests-table" class="AGtable">
-            <tr>
-                <th>Sr. No.</th>
-                <th>First Name</th>
-                <th>Last Name</th>
-                <th>Contact</th>
-                <th>Catagory</th>
-                <th>Address</th>
-                <th>Reference</th>
-                <th>Added at</th>
-                <th>Delete</th>
-            </tr>
-            <% guests.forEach((guest, index)=> { %>
-                <tr id="r<%= index + 1 %>" data-id="<%= guest.guest_id %>">
-                    <td>
-                        <%= index + 1 %>
-                    </td>
-
-                    <td class="editable" data-col="first_name">
-                        <%= guest.first_name %>
-                    </td>
-                    <td class="editable" data-col="last_name">
-                        <%= guest.last_name %>
-                    </td>
-
-                    <td>
-                        <span class="editable" data-col="number" style="display: inline-block; min-width: 80px;">
-                            <%= guest.number %>
-                        </span>
-
-                        <% if (guest.wp_number) { %>
-                            <br>
-                            <span id="wpno">
-                                <i class="bi bi-whatsapp"></i>
-                                <%= guest.wp_number %>
-                            </span>
-                            <% } %>
-                    </td>
-
-                    <td class="editable" data-col="category">
-                        <%= guest.category %>
-                    </td>
-                    <td class="editable" data-col="address">
-                        <%= guest.address %>
-                    </td>
-                    <td class="editable" data-col="reference_name">
-                        <%= guest.reference_name %>
-                    </td>
-
-                    <td>
-                        <%= new Date(guest.created_at).toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' }) %>
-                    </td>
-                    <td>
-                        <form action="/delete/<%= guest.guest_id %>" method="post"
-                            onsubmit="return confirm('Delete <%= guest.first_name %> <%= guest.last_name %>?')">
-                            <button type="submit" class="btn btn-outline-danger" class="delete-btn">Delete</button>
-                        </form>
-                    </td>
+        <div class="table-responsive">
+            <table id="ALLguests-table" class="AGtable">
+                <tr>
+                    <th>Sr. No.</th>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Contact</th>
+                    <th>Catagory</th>
+                    <th>Address</th>
+                    <th>Reference</th>
+                    <th>Added at</th>
+                    <th>Delete</th>
                 </tr>
-                <% }); %>
-        </table>
+                <% guests.forEach((guest, index)=> { %>
+                    <tr id="r<%= index + 1 %>" data-id="<%= guest.guest_id %>">
+                        <td>
+                            <%= index + 1 %>
+                        </td>
+
+                        <td class="editable" data-col="first_name">
+                            <%= guest.first_name %>
+                        </td>
+                        <td class="editable" data-col="last_name">
+                            <%= guest.last_name %>
+                        </td>
+
+                        <td>
+                            <span class="editable" data-col="number" style="display: inline-block; min-width: 80px;">
+                                <%= guest.number %>
+                            </span>
+
+                            <% if (guest.wp_number) { %>
+                                <br>
+                                <span id="wpno">
+                                    <i class="bi bi-whatsapp"></i>
+                                    <%= guest.wp_number %>
+                                </span>
+                                <% } %>
+                        </td>
+
+                        <td class="editable" data-col="category">
+                            <%= guest.category %>
+                        </td>
+                        <td class="editable" data-col="address">
+                            <%= guest.address %>
+                        </td>
+                        <td class="editable" data-col="reference_name">
+                            <%= guest.reference_name %>
+                        </td>
+
+                        <td>
+                            <%= new Date(guest.created_at).toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' }) %>
+                        </td>
+                        <td>
+                            <form action="/delete/<%= guest.guest_id %>" method="post"
+                                onsubmit="return confirm('Delete <%= guest.first_name %> <%= guest.last_name %>?')">
+                                <button type="submit" class="btn btn-outline-danger" class="delete-btn">Delete</button>
+                            </form>
+                        </td>
+                    </tr>
+                    <% }); %>
+            </table>
+        </div>
     </div>
     <br>
     <div class="d-flex justify-content-center">
