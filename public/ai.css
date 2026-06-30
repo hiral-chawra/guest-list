@@ -96,7 +96,7 @@ h1 {
 ========================================================= */
 .flex:has(.AGtable) {
     width: 100%;
-    overflow-x: auto;
+    overflow-x: 100vw;
     padding: 20px;
 }
 
