@@ -328,12 +328,16 @@ th,
 
 @media screen and (max-width: 768px) {
 
-    /* Stack the form items vertically on mobile */
+    /* 1. Scale forms relative to the wide canvas and center them */
     .flex form {
         flex-direction: column !important;
         align-items: stretch !important;
         padding: 15px !important;
-        width: 90vw !important;
+        width: 80% !important;
+        /* Uses 80% of the canvas, not the phone screen */
+        max-width: 500px !important;
+        margin: 10px auto !important;
+        /* Centers the form perfectly */
     }
 
     /* Fix the inner search group to stack */
@@ -352,22 +356,35 @@ th,
         margin-bottom: 8px !important;
     }
 
-    /* 1. Break the scroll box so the table stretches the whole webpage */
+    /* 2. Keep your Pinch-to-Zoom logic active */
     .table-responsive {
         width: 100% !important;
         overflow: visible !important;
-        /* This overrides the scroll box! */
         padding-bottom: 15px;
     }
 
-    /* 2. Force the table to stay wide */
     .AGtable {
         min-width: 800px !important;
     }
 
-    /* 3. Let the main container stretch so your background doesn't cut off */
+    /* 3. Force the main containers to center everything on the wide page */
     .flex {
         display: flex !important;
+        flex-direction: column !important;
+        /* Stacks everything neatly */
+        align-items: center !important;
+        /* Centers the elements horizontally */
         min-width: max-content !important;
+        width: 100% !important;
+    }
+
+    /* 4. Center the bottom buttons (Add Guest, Download, Show All) */
+    .d-flex.justify-content-center {
+        display: flex !important;
+        justify-content: center !important;
+        width: 100% !important;
+        min-width: max-content !important;
+        gap: 15px !important;
+        margin-top: 20px !important;
     }
 }
