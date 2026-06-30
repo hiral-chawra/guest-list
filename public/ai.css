@@ -317,13 +317,17 @@ span.editable {
         width: 90vw !important;
     }
 
-    /* 3. Fix the inner search group to stack as well */
+    /* ==========================================
+   MOBILE RESPONSIVE RULES (Screens under 768px)
+   ========================================== */
+
+    /* Fix the inner search group to stack */
     .search-group {
         flex-direction: column !important;
         width: 100% !important;
     }
 
-    /* 4. Make inputs, dropdowns, and buttons take full width */
+    /* Make inputs, dropdowns, and buttons take full width */
     .flex form select,
     .flex form input,
     .flex form button,
@@ -333,16 +337,29 @@ span.editable {
         margin-bottom: 8px !important;
     }
 
-    /* 5. Force the Table container to scroll and stay within the screen */
-    .flex:has(.AGtable) {
+    /* Target the wrapper we made to handle the scrolling */
+    .table-responsive {
         width: 100% !important;
-        max-width: 100vw !important;
-        padding: 10px !important;
         overflow-x: auto !important;
-        -webkit-overflow-scrolling: touch !important;
-        justify-content: flex-start !important;
+        display: block !important;
+        padding-bottom: 15px;
+        /* Gives a little room for the scrollbar */
+    }
+
+    /* Force the table to stay wide so it scrolls instead of squishing */
+    .AGtable {
+        min-width: 800px !important;
+    }
+
+    /* Ensure the flex container doesn't restrict the width */
+    .flex {
+        display: block !important;
     }
 }
+
+/* ==========================================
+   GLOBAL TABLE RULES (Applies to all screens)
+   ========================================== */
 
 /* Disable double-tap-to-zoom on table cells so the JS dblclick works instantly */
 td,
@@ -351,7 +368,7 @@ th,
     touch-action: manipulation;
 }
 
-/* Create a responsive wrapper for the table */
+/* Base styling for the responsive table wrapper */
 .table-responsive {
     overflow-x: auto;
     width: 100%;
